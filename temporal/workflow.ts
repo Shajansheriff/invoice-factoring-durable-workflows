@@ -1,5 +1,5 @@
 import { proxyActivities } from '@temporalio/workflow';
-import type * as activities from './activities';
+import * as activities from './activities';
 
 const { sayHello, getTimeOfDayGreeting } = proxyActivities<typeof activities>({
   startToCloseTimeout: '10 seconds',
@@ -7,6 +7,7 @@ const { sayHello, getTimeOfDayGreeting } = proxyActivities<typeof activities>({
     initialInterval: '1 second',
     backoffCoefficient: 2,
     maximumAttempts: 10,
+    nonRetryableErrorTypes: [activities.InvalidNameError.name]
   },
 });
 
